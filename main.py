@@ -4,7 +4,7 @@ from models import Database
 from config import admins
 from sheets import add_to_sheets
 
-bot_token = "6350236655:AAEZ0lIEUc9fTxFK4Hz-Hs4PEwBCdzgSqZc"
+bot_token = ""
 
 bot = TeleBot(bot_token)
 requests = {}
