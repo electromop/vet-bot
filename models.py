@@ -35,10 +35,10 @@ class Database:
             con.close()
             return 'success'
         except:
+            cur.execute("UPDATE employees SET role=? WHERE chat_id=?", (role, chat_id, ))
+            con.commit()
             cur.close()
             con.close()
-            self.del_user(chat_id)
-            self.add_user(chat_id, role)
             return "success"
     
     def add_contacts(self, chat_id, number, username):
@@ -60,10 +60,18 @@ class Database:
         con.close()
         return contacts
     
-    def del_user(self, chat_id):
+    def del_user(self, phone):
         con = sqlite3.connect(self.path)
         cur = con.cursor()
-        cur.execute("DELETE FROM employees WHERE chat_id=?", (chat_id, ))
+        cur.execute("DELETE FROM employees WHERE phone=?", (phone, ))
+        con.commit()
+        cur.close()
+        con.close()
+    
+    def del_request(self, id):
+        con = sqlite3.connect(self.path)
+        cur = con.cursor()
+        cur.execute("DELETE FROM requests WHERE id=?", (id, ))
         con.commit()
         cur.close()
         con.close()
@@ -134,11 +142,11 @@ class Database:
         con.close()
         return False if request_state[0] == None else True
 
-class Keyboard:
+# class Keyboard:
 
-    def __init__(self, kb_dict, row_width):
-        self.kb_dict = kb_dict
-        self.row_width = row_width
+#     def __init__(self, kb_dict, row_width):
+#         self.kb_dict = kb_dict
+#         self.row_width = row_width
         
-    def gen(self):
-        pass
+#     def gen(self):
+#         pass
